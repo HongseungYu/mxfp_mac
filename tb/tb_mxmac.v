@@ -15,7 +15,7 @@ module tb_mxmac;
   wire [31:0] fp_out;
 
   // Instantiate the Unit Under Test (UUT)
-  mxfp8_mac uut (
+  mxmac uut (
     .clk_i(clk_i),
     .resetn_i(resetn_i),
     .mode(mode_binary),
@@ -40,7 +40,7 @@ module tb_mxmac;
     // Initialize Inputs
     clk_i = 0;
     resetn_i = 1;
-    file = $fopen("mxfp8_test_vectors.txt", "r");
+    file = $fopen(".\\utils\\mxfp_test_vectors.txt", "r");
     if (file == 0) begin
       $display("Error: Could not open file.");
       $finish;

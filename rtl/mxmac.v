@@ -203,7 +203,9 @@ module mxmac (
     end
   end
 
-  wire signed [37:0] sum_level1 [0:15];
+  wire signed [36:0] aligned_product_1 [0:15];
+  wire signed [36:0] aligned_product_2 [0:15];
+
   // reg signed [37:0] sum_level1_temp [0:15];
   // wire flag;
 
@@ -243,6 +245,54 @@ module mxmac (
   //   end
   // end
 
+  // for(j=0; j<16; j=j+1) begin : level1_adder_instance
+  //   level1_adder_baseline uut (
+  //     .mode(mode),
+  //     .sign_1(elem1_sign[j*2] ^ elem2_sign[j*2]),
+  //     .sign_2(elem1_sign[j*2 + 1] ^ elem2_sign[j*2 + 1]),
+  //     .sum_exp_1(sum_exp[j*2]),
+  //     .sum_exp_2(sum_exp[j*2 + 1]),
+  //     .raw_product_1(raw_product[j*2]),
+  //     .raw_product_2(raw_product[j*2 + 1]),
+  //     .sum_level1(sum_level1[j])
+  //   );
+  // end
+
+  // //assign flag = (sum_level1_temp[0] != sum_level1[0]) || (sum_level1_temp[1] != sum_level1[1]) || (sum_level1_temp[2] != sum_level1[2]) || (sum_level1_temp[3] != sum_level1[3]) || (sum_level1_temp[4] != sum_level1[4]) || (sum_level1_temp[5] != sum_level1[5]) || (sum_level1_temp[6] != sum_level1[6]) || (sum_level1_temp[7] != sum_level1[7]) || (sum_level1_temp[8] != sum_level1[8]) || (sum_level1_temp[9] != sum_level1[9]) || (sum_level1_temp[10] != sum_level1[10]) || (sum_level1_temp[11] != sum_level1[11]) || (sum_level1_temp[12] != sum_level1[12]) || (sum_level1_temp[13] != sum_level1[13]) || (sum_level1_temp[14] != sum_level1[14]) || (sum_level1_temp[15] != sum_level1[15]);
+
+
+  // //level 2
+  // reg signed [38:0] sum_level2 [0:7];
+  // always @(*) begin
+  //   for (i = 0; i < 8; i = i + 1) begin
+  //     sum_level2[i] = sum_level1[i*2] + sum_level1[i*2 + 1];
+  //   end
+  // end
+
+  // //level 3
+  // reg signed [39:0] sum_level3 [0:3];
+  // always @(*) begin
+  //   for (i = 0; i < 4; i = i + 1) begin
+  //     sum_level3[i] = sum_level2[i*2] + sum_level2[i*2 + 1];
+  //   end
+  // end
+
+  // //level 4
+  // reg signed [40:0] sum_level4 [0:1];
+  // always @(*) begin
+  //   for (i = 0; i < 2; i = i + 1) begin
+  //     sum_level4[i] = sum_level3[i*2] + sum_level3[i*2 + 1];
+  //   end
+  // end
+
+  // //level 5
+  // reg signed [41:0] sum_level5;
+  // always @(*) begin
+  //   sum_level5 = sum_level4[0] + sum_level4[1];
+  //   sum_of_products = sum_level5;
+  // end
+
+
   for(j=0; j<16; j=j+1) begin : level1_adder_instance
     level1_adder_baseline uut (
       .mode(mode),
@@ -252,44 +302,15 @@ module mxmac (
       .sum_exp_2(sum_exp[j*2 + 1]),
       .raw_product_1(raw_product[j*2]),
       .raw_product_2(raw_product[j*2 + 1]),
-      .sum_level1(sum_level1[j])
+      .aligned_product_1(aligned_product_1[j]),
+      .aligned_product_2(aligned_product_2[j])
     );
   end
 
-  //assign flag = (sum_level1_temp[0] != sum_level1[0]) || (sum_level1_temp[1] != sum_level1[1]) || (sum_level1_temp[2] != sum_level1[2]) || (sum_level1_temp[3] != sum_level1[3]) || (sum_level1_temp[4] != sum_level1[4]) || (sum_level1_temp[5] != sum_level1[5]) || (sum_level1_temp[6] != sum_level1[6]) || (sum_level1_temp[7] != sum_level1[7]) || (sum_level1_temp[8] != sum_level1[8]) || (sum_level1_temp[9] != sum_level1[9]) || (sum_level1_temp[10] != sum_level1[10]) || (sum_level1_temp[11] != sum_level1[11]) || (sum_level1_temp[12] != sum_level1[12]) || (sum_level1_temp[13] != sum_level1[13]) || (sum_level1_temp[14] != sum_level1[14]) || (sum_level1_temp[15] != sum_level1[15]);
-
-
-  //level 2
-  reg signed [38:0] sum_level2 [0:7];
   always @(*) begin
-    for (i = 0; i < 8; i = i + 1) begin
-      sum_level2[i] = sum_level1[i*2] + sum_level1[i*2 + 1];
-    end
+    sum_of_products = aligned_product_1[0] + aligned_product_1[1] + aligned_product_1[2] + aligned_product_1[3] + aligned_product_1[4] + aligned_product_1[5] + aligned_product_1[6] + aligned_product_1[7] + aligned_product_1[8] + aligned_product_1[9] + aligned_product_1[10] + aligned_product_1[11] + aligned_product_1[12] + aligned_product_1[13] + aligned_product_1[14] + aligned_product_1[15]
+                      + aligned_product_2[0] + aligned_product_2[1] + aligned_product_2[2] + aligned_product_2[3] + aligned_product_2[4] + aligned_product_2[5] + aligned_product_2[6] + aligned_product_2[7] + aligned_product_2[8] + aligned_product_2[9] + aligned_product_2[10] + aligned_product_2[11] + aligned_product_2[12] + aligned_product_2[13] + aligned_product_2[14] + aligned_product_2[15];
   end
-
-  //level 3
-  reg signed [39:0] sum_level3 [0:3];
-  always @(*) begin
-    for (i = 0; i < 4; i = i + 1) begin
-      sum_level3[i] = sum_level2[i*2] + sum_level2[i*2 + 1];
-    end
-  end
-
-  //level 4
-  reg signed [40:0] sum_level4 [0:1];
-  always @(*) begin
-    for (i = 0; i < 2; i = i + 1) begin
-      sum_level4[i] = sum_level3[i*2] + sum_level3[i*2 + 1];
-    end
-  end
-
-  //level 5
-  reg signed [41:0] sum_level5;
-  always @(*) begin
-    sum_level5 = sum_level4[0] + sum_level4[1];
-    sum_of_products = sum_level5;
-  end
-
 
 
   /*

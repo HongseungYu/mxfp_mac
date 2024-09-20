@@ -10,7 +10,7 @@ from decimal import Decimal, getcontext
 directory2 = "C:\\Users\\user\\Desktop\\YHS_SNU\\graduation_project\\MXFP_MAC\\utils"
 
 #file_path1 = os.path.join(directory1, "mxfp8_test_vectors.txt")
-file_path2 = os.path.join(directory2, "mxfp8_test_vectors.txt")
+file_path2 = os.path.join(directory2, "mxfp_test_vectors.txt")
 
 group_size = 32
 
@@ -175,5 +175,5 @@ with open(file_path2, "w") as f2:
             print("dot_product:", dot_product)
             print("fp_acc_hex:", fp_acc_hex, "\n")
 
-            f1.write(f"{mode_binary} {vector1_shared_exp} {vector1_elements} {vector2_shared_exp} {vector2_elements} {fp_in_hex} {fp_acc_hex}\n")
+            #f1.write(f"{mode_binary} {vector1_shared_exp} {vector1_elements} {vector2_shared_exp} {vector2_elements} {fp_in_hex} {fp_acc_hex}\n")
             f2.write(f"{mode_binary} {vector1_shared_exp} {vector1_elements} {vector2_shared_exp} {vector2_elements} {fp_in_hex} {fp_acc_hex}\n")

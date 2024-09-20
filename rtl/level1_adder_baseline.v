@@ -12,7 +12,8 @@ module level1_adder_baseline (
   input wire [13:0] raw_product_1,
   input wire [13:0] raw_product_2,
 
-  output wire [37:0] sum_level1 // 1(sign) + 1(carry) + 36(sum) = 38
+  output wire [36:0] aligned_product_1,
+  output wire [36:0] aligned_product_2
   );
 
   reg signed [4:0] shift_bias;
@@ -55,24 +56,18 @@ module level1_adder_baseline (
   end
 
   // 37bit aligner
-  reg signed [36:0] aligned_product_1;
-  reg signed [36:0] aligned_product_2;
-  
-  //Should initialize aligned_product to 0
-  always @(*) begin
-    // MXFP8(e4m3): 1 + 1 = 2 -> 2^(-6) + 2^(-6) = 2^(-12)
-    // 18.17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0
-    //                                _ _._ _ _ _ _ _  
-    // if sum_exp = 2, left shift 0 bits
-    // if sum_exp = 3, left shift 1 bits 
-    // ...
+    
+  // MXFP8(e4m3): 1 + 1 = 2 -> 2^(-6) + 2^(-6) = 2^(-12)
+  // 18.17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0
+  //                                _ _._ _ _ _ _ _  
+  // if sum_exp = 2, left shift 0 bits
+  // if sum_exp = 3, left shift 1 bits 
+  // ...
 
-    // MXFP6(e2m3): 
-    aligned_product_1 = adjusted_product_1 << shift_distance_1;
-    aligned_product_2 = adjusted_product_2 << shift_distance_2;
-  end
+  // MXFP6(e2m3): 
 
-  assign sum_level1 = aligned_product_1 + aligned_product_2;
+  assign aligned_product_1 = adjusted_product_1 << shift_distance_1;
+  assign aligned_product_2 = adjusted_product_2 << shift_distance_2;
 
 endmodule
 
