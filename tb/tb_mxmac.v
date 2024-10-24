@@ -110,7 +110,7 @@ module tb_mxmac;
         $display("Checking output at cycle %0d", iter - 8);
         if (fp_out !== expected_output_queue[queue_head]) begin
           $display("Mismatch at cycle %0d: expected_fp_out = %h, fp_out = %h", iter - 8, expected_output_queue[queue_head], fp_out);
-          $stop;
+          // $stop;
         end
         queue_head = (queue_head + 1) % 16;  // Update the head pointer
         if (queue_head == queue_tail) queue_empty = 1;  // Check if queue is empty
