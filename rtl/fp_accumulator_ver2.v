@@ -130,6 +130,4 @@ module fp_accumulator_ver2 (
 
 
 
-
-
 endmodule

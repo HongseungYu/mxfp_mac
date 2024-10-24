@@ -7,7 +7,7 @@ from decimal import Decimal, getcontext
 # Define the desired directories and file paths
 #directory1 = "C:\\Users\\user\\vivado_projects\\mxfp8_mac\\mxfp8_mac.sim\\sim_1\\behav\\xsim"
 #C:\Users\user\Desktop\YHS_SNU\graduation_project\MXFP8_E4M3_mac\utils
-directory2 = "C:\\Users\\user\\Desktop\\YHS_SNU\\graduation_project\\MXFP_MAC\\utils"
+directory2 = "C:\\Users\\user\\Desktop\\YHS\\graduation_project\\MXFP_MAC\\utils"
 
 #file_path1 = os.path.join(directory1, "mxfp8_test_vectors.txt")
 file_path2 = os.path.join(directory2, "mxfp_test_vectors.txt")
@@ -15,7 +15,7 @@ file_path2 = os.path.join(directory2, "mxfp_test_vectors.txt")
 group_size = 32
 
 ###### CHANGE THIS PART ######
-num_test = [20, 20, 20, 20, 20]  # e4m3, e2m3, e3m2, e2m1, int8
+num_test = [100,0,0,0,0]  # e4m3, e2m3, e3m2, e2m1, int8
 ##############################
 
 
